@@ -25,9 +25,24 @@ One malformed-feed test initially found that feedparser can accept an HTML error
 
 An independent code review also led to verified fixes: SMTP configuration is validated before claiming delivery; corrected enrichment regenerates stale summaries/unsent previews; old failed items cannot block a later publication window; skipped-entry warnings no longer suppress successful collection. Tests cover these regressions.
 
+## Observed GitHub Actions results
+
+The published implementation commit [`7c25aea7e3140a04dec2df27e16287cabf607bd6`](https://github.com/KrishnaVarun02/genai-news-aggregator/commit/7c25aea7e3140a04dec2df27e16287cabf607bd6) passed **all four jobs** in [run 36821941430](https://github.com/KrishnaVarun02/genai-news-aggregator/actions/runs/36821941430), completed on 2026-10-01. Job logs, test counts, platform images, and actual demo steps were inspected. Every job installed the locked dependencies with CPython 3.13.5.
+
+| Actual CI platform | Evidence | Observed behavior |
+|---|---|---|
+| Windows Server 2025, 10.0.26100, x86_64; PowerShell | [Native Windows job](https://github.com/KrishnaVarun02/genai-news-aggregator/actions/runs/36821941430/job/110239204520) | **27 passed** in 10.60s; fixture CLI demo and preview-artifact upload succeeded |
+| macOS 26.6.2 (25G83), arm64 | [Native macOS job](https://github.com/KrishnaVarun02/genai-news-aggregator/actions/runs/36821941430/job/110239204613) | **27 passed** in 2.21s; fixture CLI demo and preview-artifact upload succeeded |
+| Ubuntu 24.04.5, x86_64 | [Native Linux job](https://github.com/KrishnaVarun02/genai-news-aggregator/actions/runs/36821941430/job/110239204571) | **27 passed** in 2.91s; fixture CLI demo and preview-artifact upload succeeded |
+| Ubuntu 24.04.5, x86_64; PostgreSQL 17.6 and Mailpit services | [Database/email/container job](https://github.com/KrishnaVarun02/genai-news-aggregator/actions/runs/36821941430/job/110239204370) | **1 integration test passed** in 1.21s; application Docker image built and container fixture demo succeeded |
+
+This proves native application setup and deterministic behavior on those specific hosted platforms. It does not prove installation of Docker Desktop/WSL2 on a Windows workstation, Windows 10/11 desktop behavior, native Intel macOS Docling support, or real paid integrations. Docling and live public-source checks were performed on local macOS as recorded above, not in the native CI matrix. Subsequent commit results are available in [the repository's Actions history](https://github.com/KrishnaVarun02/genai-news-aggregator/actions).
+
+After local verification, `docker compose down` stopped and removed only this project's PostgreSQL/Mailpit containers and network. The named PostgreSQL volume was preserved; `docker compose ps` showed no running project containers. Restart with `docker compose up -d postgres mailpit`.
+
 ## Exactly what remains external
 
-- **Windows/Linux native execution:** GitHub Actions is configured for core tests and the real CLI demo on Windows, macOS, and Linux, with PostgreSQL/Mailpit/container behavior in a Linux job. Actual latest-commit run links/results are supplied with repository delivery. Generated workflows alone are not treated as proof. Windows ARM and native Intel macOS Docling are unverified.
+- **Additional platforms:** native CI results are established above. Windows ARM, Windows 10/11 desktop machines, Docker Desktop/WSL2 installation on Windows, and native Intel macOS Docling remain unverified.
 - **Live OpenAI:** no paid API request was made. The actual OpenAI Python SDK's Responses parser was exercised against an HTTP mock and structured schemas. This validates request/response handling, not account access, model availability for the user's account, live summary quality, or stochastic ranking. `news check-openai` and `news run --mode live --send preview` are the explicit real-service checks after credentials and spending authorization.
 - **Real recipient email:** no Gmail or external recipient was contacted. Local SMTP and MIME delivery were verified against Mailpit. Gmail app-password authentication and real delivery require the user's explicit recipient instruction.
 - **Render:** public schema validation passed; account authorization, resource creation, billing, scheduling, deployed database networking, production memory footprint, and actual cloud execution are untested. See README's concrete deployment steps.
