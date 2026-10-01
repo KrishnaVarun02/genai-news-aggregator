@@ -1,0 +1,42 @@
+name: genai-news-aggregator
+services:
+  postgres:
+    image: postgres:17.6-bookworm
+    environment:
+      POSTGRES_USER: news
+      POSTGRES_PASSWORD: local-development-only
+      POSTGRES_DB: news
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - news-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U news -d news"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  mailpit:
+    image: axllent/mailpit:v1.27.9
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+  app:
+    build: .
+    profiles: ["app"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://news:local-development-only@postgres:5432/news
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      PREVIEW_DIR: /app/previews
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ALLOW_PAID_API: ${ALLOW_PAID_API:-false}
+      ALLOW_REAL_EMAIL: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    volumes:
+      - ./previews:/app/previews
+volumes:
+  news-postgres:

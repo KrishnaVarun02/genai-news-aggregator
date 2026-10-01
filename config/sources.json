@@ -1,0 +1,7 @@
+[
+  {"name":"youtube-matthew-berman","kind":"youtube","url":"https://www.youtube.com/feeds/videos.xml?channel_id=UCawZsQWqfGSbCI5yjkdVkTA"},
+  {"name":"openai","kind":"openai","url":"https://openai.com/news/rss.xml"},
+  {"name":"anthropic-news","kind":"anthropic","url":"https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml"},
+  {"name":"anthropic-engineering","kind":"anthropic","url":"https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml"},
+  {"name":"anthropic-research","kind":"anthropic","url":"https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml"}
+]

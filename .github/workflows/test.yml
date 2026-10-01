@@ -1,0 +1,59 @@
+name: News pipeline tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.18"
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run --no-sync pytest -q -m "not integration and not document"
+      - run: uv run --no-sync news demo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fixture-preview-${{ matrix.os }}
+          path: previews/
+  postgres-mail:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17.6-bookworm
+        env:
+          POSTGRES_USER: news
+          POSTGRES_PASSWORD: local-development-only
+          POSTGRES_DB: news_test
+        ports:
+          - 55432:5432
+        options: >-
+          --health-cmd "pg_isready -U news -d news_test"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+      mailpit:
+        image: axllent/mailpit:v1.27.9
+        ports:
+          - 1025:1025
+          - 8025:8025
+    env:
+      RUN_SERVICE_TESTS: "1"
+      TEST_DATABASE_URL: postgresql+psycopg://news:local-development-only@localhost:55432/news_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.18"
+      - run: uv sync --locked
+      - run: uv run --no-sync pytest -q -m integration
+      - run: docker build -t genai-news-aggregator:test .
+      - run: docker run --rm genai-news-aggregator:test uv run --no-sync news demo

@@ -1,0 +1,7 @@
+{
+  "name": "Reader",
+  "background": "Software engineer building practical AI applications",
+  "interests": ["agents", "retrieval", "evaluation", "open source", "model releases"],
+  "avoid": ["celebrity gossip", "investment speculation"],
+  "top_n": 10
+}

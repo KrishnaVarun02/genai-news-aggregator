@@ -1,0 +1,75 @@
+Subject: FIXTURE =?utf-8?q?=E2=80=94_NOT_LIVE_NEWS_=C2=B7?= 2026-01-01
+From: news@example.invalid
+To: reader@example.invalid
+Message-ID: <2c3678ec40cb4c95d526b275ea9ee58e@news-aggregator.invalid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============7033228724719543303=="
+
+--===============7033228724719543303==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+FIXTURE =E2=80=94 NOT LIVE NEWS =C2=B7 2026-01-01
+
+Hello Reader,
+FIXTURE PREVIEW: 3 authored examples demonstrate the daily workflow. No live =
+model or market/news service generated these summaries.
+
+## [FIXTURE] A fictional agent evaluation toolkit
+A fictional team publishes tools for agents and evaluation. The example demon=
+strates reproducible testing for open source workflows. This is authored test=
+ data, not live news.
+Source: fixture-youtube =C2=B7 2026-01-01T10:00:00+00:00
+Why: Deterministic fixture keyword overlap
+https://example.invalid/fixture/agents
+
+## [FIXTURE] A fictional model release
+A fictional model releases example helps demonstrate the digest. No company h=
+as announced this product. This is authored test data, not live news.
+Source: fixture-openai =C2=B7 2026-01-01T03:00:00+00:00
+Why: Deterministic fixture keyword overlap
+https://example.invalid/fixture/models
+
+## [FIXTURE] A fictional retrieval method
+An authored fixture describes a retrieval method for AI applications. It is n=
+ot a report of an actual research result. This is authored test data, not liv=
+e news.
+Source: fixture-anthropic =C2=B7 2026-01-01T07:00:00+00:00
+Why: Deterministic fixture keyword overlap
+https://example.invalid/fixture/retrieval
+
+--===============7033228724719543303==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html lang=3D"en"><head><meta charset=3D"utf-8"><meta name=3D"=
+viewport" content=3D"width=3Ddevice-width"><title>AI news digest</title><styl=
+e>body{max-width:720px;margin:40px auto;padding:0 24px;font:17px/1.6 system-u=
+i;color:#172033;background:#f7f8fb}h1{font-size:28px}h2{font-size:21px;line-h=
+eight:1.4}section{background:white;border:1px solid #dce1ea;border-radius:12p=
+x;padding:20px;margin:20px 0}a{color:#164ac5}.meta{font-size:13px;color:#6470=
+86}</style></head><body><h1>FIXTURE =E2=80=94 NOT LIVE NEWS =C2=B7 2026-01-01=
+</h1><p>Hello Reader,</p><p>FIXTURE PREVIEW: 3 authored examples demonstrate =
+the daily workflow. No live model or market/news service generated these summ=
+aries.</p><section><h2><a href=3D"https://example.invalid/fixture/agents">[FI=
+XTURE] A fictional agent evaluation toolkit</a></h2><p>A fictional team publi=
+shes tools for agents and evaluation. The example demonstrates reproducible t=
+esting for open source workflows. This is authored test data, not live news.<=
+/p><p class=3D"meta">fixture-youtube =C2=B7 2026-01-01T10:00:00+00:00</p><p><=
+strong>Why this matters:</strong> Deterministic fixture keyword overlap</p></=
+section><section><h2><a href=3D"https://example.invalid/fixture/models">[FIXT=
+URE] A fictional model release</a></h2><p>A fictional model releases example =
+helps demonstrate the digest. No company has announced this product. This is =
+authored test data, not live news.</p><p class=3D"meta">fixture-openai =C2=B7=
+ 2026-01-01T03:00:00+00:00</p><p><strong>Why this matters:</strong> Determini=
+stic fixture keyword overlap</p></section><section><h2><a href=3D"https://exa=
+mple.invalid/fixture/retrieval">[FIXTURE] A fictional retrieval method</a></h=
+2><p>An authored fixture describes a retrieval method for AI applications. It=
+ is not a report of an actual research result. This is authored test data, no=
+t live news.</p><p class=3D"meta">fixture-anthropic =C2=B7 2026-01-01T07:00:0=
+0+00:00</p><p><strong>Why this matters:</strong> Deterministic fixture keywor=
+d overlap</p></section></body></html>
+
+--===============7033228724719543303==--

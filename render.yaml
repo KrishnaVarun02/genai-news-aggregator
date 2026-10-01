@@ -1,0 +1,44 @@
+# Applying this blueprint provisions paid resources. Review plans and authorize first.
+services:
+  - type: cron
+    name: genai-news-daily-digest
+    runtime: docker
+    plan: 0.5c-512mb
+    schedule: "0 7 * * *"
+    dockerfilePath: ./Dockerfile
+    dockerCommand: uv run --no-sync news run --mode live --send preview --description-only-articles
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: genai-news-db
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ALLOW_PAID_API
+        value: "false"
+      - key: ALLOW_REAL_EMAIL
+        value: "false"
+      - key: WITH_DOCUMENTS
+        value: "false"
+      - key: PROFILE_PATH
+        value: config/profile.json
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_STARTTLS
+        value: "true"
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: SMTP_TO
+        sync: false
+databases:
+  - name: genai-news-db
+    databaseName: news
+    user: news
+    plan: 0.1c-256mb
+    postgresMajorVersion: "17"
