@@ -35,7 +35,7 @@ uv run --no-sync news demo
 open examples/fixture-digest.html
 
 cp .env.example .env
-docker compose up -d postgres mailpit
+docker compose up -d --wait postgres mailpit
 uv run --no-sync news run --mode fixture --send sink
 uv run --no-sync news inspect
 open http://localhost:8025
@@ -53,7 +53,7 @@ uv run --no-sync news demo
 Start-Process examples/fixture-digest.html
 
 Copy-Item .env.example .env
-docker compose up -d postgres mailpit
+docker compose up -d --wait postgres mailpit
 uv run --no-sync news run --mode fixture --send sink
 uv run --no-sync news inspect
 Start-Process http://localhost:8025
@@ -112,7 +112,7 @@ Each day/profile/window/mode has one digest identity. Unsent previews refresh if
 ## Container workflow
 
 ```sh
-docker compose up -d postgres mailpit
+docker compose up -d --wait postgres mailpit
 docker compose build app
 docker compose run --rm app uv run --no-sync news run --mode fixture --send sink
 ```

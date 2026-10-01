@@ -38,7 +38,7 @@ The published implementation commit [`7c25aea7e3140a04dec2df27e16287cabf607bd6`]
 
 This proves native application setup and deterministic behavior on those specific hosted platforms. It does not prove installation of Docker Desktop/WSL2 on a Windows workstation, Windows 10/11 desktop behavior, native Intel macOS Docling support, or real paid integrations. Docling and live public-source checks were performed on local macOS as recorded above, not in the native CI matrix. Subsequent commit results are available in [the repository's Actions history](https://github.com/KrishnaVarun02/genai-news-aggregator/actions).
 
-After local verification, `docker compose down` stopped and removed only this project's PostgreSQL/Mailpit containers and network. The named PostgreSQL volume was preserved; `docker compose ps` showed no running project containers. Restart with `docker compose up -d postgres mailpit`.
+After local verification, `docker compose down` stopped and removed only this project's PostgreSQL/Mailpit containers and network. The named PostgreSQL volume was preserved; `docker compose ps` showed no running project containers. Restart with `docker compose up -d --wait postgres mailpit`.
 
 ## Exactly what remains external
 
@@ -56,7 +56,7 @@ Run from the repository root using the shell-specific setup in README:
 uv sync --locked
 uv run --no-sync pytest -q -m 'not integration and not document'
 uv run --no-sync news demo
-docker compose up -d postgres mailpit
+docker compose up -d --wait postgres mailpit
 uv run --no-sync news run --mode fixture --send sink
 uv run --no-sync news inspect
 ```
